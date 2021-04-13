@@ -1,9 +1,14 @@
+/* eslint-disable @typescript-eslint/await-thenable */
+/* eslint-disable @typescript-eslint/unbound-method */
+
 import { IKeyValueStoreAsync } from "@konceiver/kv";
 import NeDB from "nedb";
 import pify from "pify";
 
 export class StoreAsync<K, T> implements IKeyValueStoreAsync<K, T> {
-	public static async new<K, T>(opts: Record<string, any> = {}): Promise<StoreAsync<K, T>> {
+	public static async new<K, T>(
+		opts: Record<string, any> = {}
+	): Promise<StoreAsync<K, T>> {
 		const db: NeDB = new NeDB(opts);
 		await db.loadDatabase();
 
@@ -19,7 +24,10 @@ export class StoreAsync<K, T> implements IKeyValueStoreAsync<K, T> {
 
 	public async all(): Promise<Array<[K, T]>> {
 		// @ts-ignore
-		return (await this.store.find({})).map((row: { key: K; value: T }) => [row.key, row.value]);
+		return (await this.store.find({})).map((row: { key: K; value: T }) => [
+			row.key,
+			row.value,
+		]);
 	}
 
 	public async keys(): Promise<K[]> {
@@ -71,7 +79,9 @@ export class StoreAsync<K, T> implements IKeyValueStoreAsync<K, T> {
 	}
 
 	public async putMany(values: Array<[K, T]>): Promise<boolean[]> {
-		return Promise.all(values.map(async (value: [K, T]) => this.put(value[0], value[1])));
+		return Promise.all(
+			values.map(async (value: [K, T]) => this.put(value[0], value[1]))
+		);
 	}
 
 	public async has(key: K): Promise<boolean> {
