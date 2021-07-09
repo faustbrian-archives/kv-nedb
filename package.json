@@ -33,7 +33,7 @@
 	"devDependencies": {
 		"@konceiver/kv-test-suite": "^1.0.0",
 		"@konceiver/tease": "^2.0.1",
-		"@types/nedb": "^1.8.11"
+		"@types/nedb": "^1.8.12"
 	},
 	"types": "dist/index"
 }
